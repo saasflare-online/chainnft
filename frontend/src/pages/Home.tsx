@@ -21,9 +21,9 @@ const Home = () => {
   const [processingId, setProcessingId] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchNFTs = async () => {
       try {
-        const res = await fetch('http://localhost:3001/api/nfts');
+        const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001';
+        const res = await fetch(`${backendUrl}/api/nfts`);
         if (res.ok) {
           const data = await res.json();
           // Filter out any invalid items (like entries with "..." from unconfigured backends)

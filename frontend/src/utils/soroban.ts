@@ -8,12 +8,13 @@ import {
   BASE_FEE
 } from '@stellar/stellar-sdk';
 
-const RPC_URL = 'https://soroban-testnet.stellar.org';
+const RPC_URL = import.meta.env.VITE_RPC_URL || 'https://soroban-testnet.stellar.org';
 const server = new rpc.Server(RPC_URL);
 
-// REAL CONTRACT IDS - DEPLOYED TO TESTNET
-export const NFT_CONTRACT_ID = 'CAAERVDMPWVEOVRO24OZRT7MTQU4Q3FACQ3ABZVWXQR5TSSXH3FOEL7A'; 
-export const MARKETPLACE_CONTRACT_ID = 'CDNTJDRFJZHLTY3BVWSBYKGJGJR3UDTWAX2PU65FEDNGB5CVMWGTZEKL'; 
+// CONTRACT IDS FROM ENV
+export const NFT_CONTRACT_ID = import.meta.env.VITE_NFT_CONTRACT_ID || ''; 
+export const MARKETPLACE_CONTRACT_ID = import.meta.env.VITE_MARKETPLACE_CONTRACT_ID || ''; 
+const XLM_TOKEN_ID = import.meta.env.VITE_XLM_TOKEN_ID || 'CDLZBAH36MQ3X6U325RHSJTYXIKCJUVEKDX6E2EAMPH7RPTLXZGNR7ED';
 
 export const getEvents = async (contractId: string) => {
   try {
@@ -50,7 +51,7 @@ export const buyNFT = async (
     const account = await server.getAccount(buyerAddress);
     const marketplace = new Contract(MARKETPLACE_CONTRACT_ID);
 
-    // 1. Build Transaction
+    // Build Transaction
     const tx = new TransactionBuilder(account, {
       fee: BASE_FEE,
       networkPassphrase: Networks.TESTNET,
@@ -66,19 +67,15 @@ export const buyNFT = async (
       .setTimeout(30)
       .build();
 
-    // 2. Simulate
+    // Simulate
     const simulated = await server.simulateTransaction(tx);
     if (rpc.Api.isSimulationError(simulated)) {
       throw new Error(`Simulation failed: ${JSON.stringify(simulated.error)}`);
     }
 
-    // 3. Assemble Transaction (for fees and resources)
+    // Assemble and Sign
     const assembledTx = rpc.assembleTransaction(tx, simulated).build();
-
-    // 4. Sign with Freighter (returns base64 XDR)
     const signedXdr = await sign(assembledTx.toXDR());
-
-    // 5. Build signed transaction object and submit
     const signedTx = TransactionBuilder.fromXDR(signedXdr, Networks.TESTNET);
     const result = await server.sendTransaction(signedTx);
     return result;

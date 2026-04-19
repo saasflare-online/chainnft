@@ -3,12 +3,11 @@ import NFT from '../models/NFT';
 import Listing from '../models/Listing';
 import Activity from '../models/Activity';
 
-const RPC_URL = 'https://soroban-testnet.stellar.org';
+// Contract IDs from environment
+const NFT_CONTRACT_ID = process.env.NFT_CONTRACT_ID || ''; 
+const MARKETPLACE_CONTRACT_ID = process.env.MARKETPLACE_CONTRACT_ID || ''; 
+const RPC_URL = process.env.RPC_URL || 'https://soroban-testnet.stellar.org';
 const server = new rpc.Server(RPC_URL);
-
-// REAL CONTRACT IDS - DEPLOYED TO TESTNET
-const NFT_CONTRACT_ID = 'CAAERVDMPWVEOVRO24OZRT7MTQU4Q3FACQ3ABZVWXQR5TSSXH3FOEL7A'; 
-const MARKETPLACE_CONTRACT_ID = 'CDNTJDRFJZHLTY3BVWSBYKGJGJR3UDTWAX2PU65FEDNGB5CVMWGTZEKL'; 
 
 export const startIndexer = async () => {
   console.log('Starting Soroban Indexer...');

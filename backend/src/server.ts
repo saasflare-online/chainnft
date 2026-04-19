@@ -9,7 +9,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const MONGO_URI = 'mongodb+srv://greyparadox:parth1241@payslip.5du9xig.mongodb.net/?appName=payslip';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/nft-marketplace';
 
 app.use(cors());
 app.use(express.json());

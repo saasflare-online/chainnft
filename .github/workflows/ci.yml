@@ -18,6 +18,11 @@ jobs:
         with:
           targets: wasm32-unknown-unknown
           
+      - name: Install Stellar CLI
+        run: |
+          curl -sSfL https://release.stellar.org/stellar-cli/install.sh | sh -s -- --to /usr/local/bin
+          stellar --version
+          
       - name: Cache Cargo
         uses: actions/cache@v4
         with:
@@ -29,10 +34,10 @@ jobs:
             contracts/target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
           
-      - name: Build Contracts
+      - name: Build Contracts (Optimized)
         run: |
           cd contracts
-          cargo build --target wasm32-unknown-unknown --release
+          stellar contract build --optimize
           
       - name: Run Tests
         run: |
@@ -60,7 +65,7 @@ jobs:
       - name: Lint
         run: |
           cd frontend
-          npm run lint || true # Allow lint errors for now but log them
+          npm run lint
           
       - name: Build
         run: |

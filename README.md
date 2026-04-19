@@ -5,54 +5,48 @@ A high-revenue, premium NFT marketplace built on the Stellar network using Sorob
 ![Desktop View](https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=1200)
 
 ## 🚀 Live Demo
-- **URL**: [https://stellar-soroban-nft.netlify.app](https://stellar-soroban-nft.netlify.app) (Example)
-- **CI Status**: ![CI Badge](https://github.com/user/stellar-nft/actions/workflows/ci.yml/badge.svg)
+- **URL**: [https://stellar-soroban-nft.netlify.app](https://stellar-soroban-nft.netlify.app)
+- **CI Status**: ![CI](https://github.com/saasflare-online/chainnft/actions/workflows/ci.yml/badge.svg)
 
 ## ✨ Features
-- **Freighter Integration**: Secure wallet connectivity and signing.
+- **Freighter Integration**: Secure wallet connectivity and signing for all transactions.
 - **Inter-Contract Architecture**: 
-  - **NFT Contract**: Mint and manage unique assets.
-  - **Royalty Splitter**: Automatic revenue distribution between Creator, Platform, and Treasury.
+  - **NFT Contract**: Mint and manage unique assets with on-chain metadata.
+  - **Royalty Splitter**: Automatic revenue distribution (50% Creator, 25% Platform, 25% Treasury).
   - **Marketplace**: Atomic listing and purchases using cross-contract calls.
-- **Micro-Animations**: Smooth React-based UI with TailwindCSS and Lucide icons.
-- **Real-Time Events**: Polling via Soroban RPC `getEvents`.
-- **Mobile First**: Sticky action bars and responsive grid galleries.
+- **Micro-Animations**: Smooth React-based UI with TailwindCSS and Lucide-React icons.
+- **MongoDB Indexing**: Fast off-chain indexing of blockchain events for activity history.
 
 ## 🛠 Tech Stack
 - **Frontend**: Vite + React + TypeScript + TailwindCSS
+- **Backend/Indexer**: Node.js + Express + Mongoose (MongoDB)
 - **Contracts**: Soroban Rust SDK
 - **Wallet**: Freighter
-- **CI/CD**: GitHub Actions + Netlify
 
-## 📜 Contract Addresses (Testnet)
+## 📜 Verified Contract Addresses (Testnet)
 | Contract | Address |
 | --- | --- |
-| **NFT** | `CAR7_..._PLACEHOLDER` |
-| **Marketplace** | `CMKT_..._PLACEHOLDER` |
-| **Royalty Splitter** | `CSPL_..._PLACEHOLDER` |
+| **NFT** | `CAAERVDMPWVEOVRO24OZRT7MTQU4Q3FACQ3ABZVWXQR5TSSXH3FOEL7A` |
+| **Marketplace** | `CDNTJDRFJZHLTY3BVWSBYKGJGJR3UDTWAX2PU65FEDNGB5CVMWGTZEKL` |
+| **Royalty Splitter** | `CB4USENGKQMOW7AIENBSMNBBTISXBWWAHE63X6ZMTJ5JEQRRJ5ZSQWLL` |
 
 > [!NOTE]
-> **Inter-Contract Call Verified**: Example Tx Hash `a1b2c3d4...` shows the Marketplace calling the NFT contract for transfer and the Splitter for payment in a single atomic transaction.
+> **Production Ready**: These contracts are initialized and live. The Genesis NFT #1 is already listed and visible in the gallery.
 
 ## 🛠 Local Setup
 
-### 1. Build Contracts
+### 1. Backend (Indexer & API)
 ```bash
-cd contracts
-cargo build --target wasm32-unknown-unknown --release
-```
-
-### 2. Setup Frontend
-```bash
-cd frontend
+cd backend
 npm install
 npm run dev
 ```
 
-### 3. Deploy
-Ensure you have the `stellar` CLI installed and configured for Testnet.
+### 2. Frontend
 ```bash
-stellar contract deploy --wasm target/wasm32-unknown-unknown/release/nft.wasm --source dev
+cd frontend
+npm install
+npm run dev
 ```
 
 ## 📄 License

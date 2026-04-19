@@ -1,1 +1,0 @@
-/Users/parthkaran/Documents/claude/level4/nft/contracts/target/wasm32-unknown-unknown/release/nft.wasm: /Users/parthkaran/Documents/claude/level4/nft/contracts/nft/src/lib.rs /Users/parthkaran/Documents/claude/level4/nft/contracts/nft/src/test.rs

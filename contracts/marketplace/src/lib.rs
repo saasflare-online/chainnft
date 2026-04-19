@@ -3,13 +3,13 @@ use soroban_sdk::{contract, contractimpl, contracttype, Address, Env, Symbol, sy
 
 mod nft_contract {
     soroban_sdk::contractimport!(
-        file = "../target/wasm32-unknown-unknown/release/nft.wasm"
+        file = "../../target/wasm32-unknown-unknown/release/nft.wasm"
     );
 }
 
 mod splitter_contract {
     soroban_sdk::contractimport!(
-        file = "../target/wasm32-unknown-unknown/release/royalty_splitter.wasm"
+        file = "../../target/wasm32-unknown-unknown/release/royalty_splitter.wasm"
     );
 }
 

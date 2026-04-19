@@ -16,11 +16,9 @@ pub struct NFTContract;
 #[contractimpl]
 impl NFTContract {
     pub fn init(env: Env, admin: Address) {
-        if env.storage().instance().has(&DataKey::Admin) {
-            panic!("already initialized");
-        }
         env.storage().instance().set(&DataKey::Admin, &admin);
-        env.storage().instance().set(&DataKey::Supply, &0i128);
+        let supply: i128 = 0;
+        env.storage().instance().set(&DataKey::Supply, &supply);
     }
 
     pub fn mint(env: Env, to: Address, metadata_uri: String) -> i128 {
